@@ -40,10 +40,6 @@ func (u *userRepo) GetUserByUsername(ctx context.Context, req string) (res entit
 
 	err = infra.GetDB().Where("username = ?", req).First(&res).Error
 	if err != nil {
-		// if errors.Is(err, gorm.ErrRecordNotFound) {
-		// 	return entity.User{}, err
-		// }
-
 		return entity.User{}, err
 	}
 	return

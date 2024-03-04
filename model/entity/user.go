@@ -1,8 +1,6 @@
 package entity
 
-import (
-	"scheduleSystem/utils"
-)
+import "scheduleSystem/utils"
 
 type User struct {
 	UserID   uint       `json:"user_id" gorm:"primaryKey"`

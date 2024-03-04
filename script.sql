@@ -1,3 +1,6 @@
+CREATE DATABASE "tasks-management"
+USE DATABASE "tasks-management"
+
 CREATE TABLE "user_task"(
     "user_id" INTEGER NOT NULL,
     "task_id" INTEGER NOT NULL
