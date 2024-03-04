@@ -2,14 +2,12 @@ package repository
 
 import (
 	"context"
-	"errors"
 
 	"scheduleSystem/infra"
 	"scheduleSystem/model/entity"
 	"scheduleSystem/model/response"
 
 	"go.uber.org/zap"
-	"gorm.io/gorm"
 )
 
 type IUserRepo interface {
@@ -42,10 +40,9 @@ func (u *userRepo) GetUserByUsername(ctx context.Context, req string) (res entit
 
 	err = infra.GetDB().Where("username = ?", req).First(&res).Error
 	if err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			// logger.Error("[ErrRecordNotFound]err", zap.Error(err))
-			return entity.User{}, err
-		}
+		// if errors.Is(err, gorm.ErrRecordNotFound) {
+		// 	return entity.User{}, err
+		// }
 
 		return entity.User{}, err
 	}

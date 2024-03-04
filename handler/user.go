@@ -34,17 +34,18 @@ func (u *userHander) Ping(c *gin.Context) {
 
 func (u *userHander) Register(c *gin.Context) {
 	var req entity.User
-	err := c.ShouldBindJSON(&req)
+	err := c.BindJSON(&req)
 	if err != nil {
 		c.IndentedJSON(http.StatusBadRequest, wapper.FailWithErr(err))
+		return
 	}
 
 	res, err := u.userService.Register(c, req)
 	if err != nil {
 		c.IndentedJSON(http.StatusInternalServerError, wapper.FailWithErr(err))
-	} else {
-		c.IndentedJSON(http.StatusOK, wapper.SuccessWithData(res))
+		return
 	}
+	c.IndentedJSON(http.StatusOK, wapper.SuccessWithData(res))
 }
 
 func (u *userHander) Login(c *gin.Context) {
@@ -55,12 +56,13 @@ func (u *userHander) Login(c *gin.Context) {
 	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		c.IndentedJSON(http.StatusBadRequest, wapper.FailWithErr(err))
+		return
 	}
 
 	res, err := u.userService.Login(c, req)
 	if err != nil {
 		c.IndentedJSON(http.StatusInternalServerError, wapper.FailWithErr(err))
-	} else {
-		c.IndentedJSON(http.StatusOK, wapper.SuccessWithData(res))
+		return
 	}
+	c.IndentedJSON(http.StatusOK, wapper.SuccessWithData(res))
 }
