@@ -1,34 +1,3 @@
-// package utils
-//
-// import (
-// 	"encoding/json"
-// 	"time"
-// )
-//
-// type Date time.Time
-//
-// var _ json.Unmarshaler = &Date{}
-//
-// const dateFormat = "2006-01-02"
-//
-// func (mt *Date) UnmarshalJSON(bs []byte) error {
-// 	var s string
-// 	err := json.Unmarshal(bs, &s)
-// 	if err != nil {
-// 		return err
-// 	}
-// 	t, err := time.ParseInLocation(dateFormat, s, time.UTC)
-// 	if err != nil {
-// 		return err
-// 	}
-// 	*mt = Date(t)
-// 	return nil
-// }
-//
-// func (mt *Date) MarshalJSON() ([]byte, error) {
-// 	return json.Marshal(time.Time(*mt).Format(dateFormat))
-// }
-
 package utils
 
 import (

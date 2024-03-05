@@ -1,9 +1,8 @@
 package router
 
 import (
-	"scheduleSystem/handler"
-
 	"github.com/gin-gonic/gin"
+	"github.com/leehai1107/Task-managent-sys/handler"
 )
 
 type IRouter interface {
@@ -27,8 +26,8 @@ func (r *router) Register() *gin.Engine {
 	{
 		user.GET("/ping", r.userHandler.Ping)
 		user.POST("/register", r.userHandler.Register)
-	  user.POST("/login", r.userHandler.Login)
-  }
+		user.POST("/login", r.userHandler.Login)
+	}
 
 	return router
 }

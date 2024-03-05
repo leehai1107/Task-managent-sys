@@ -4,12 +4,11 @@ import (
 	"context"
 	"errors"
 
-	"scheduleSystem/model/entity"
-	"scheduleSystem/model/request"
-	"scheduleSystem/model/response"
-	"scheduleSystem/repository"
-	"scheduleSystem/wapper"
-
+	"github.com/leehai1107/Task-managent-sys/model/entity"
+	"github.com/leehai1107/Task-managent-sys/model/request"
+	"github.com/leehai1107/Task-managent-sys/model/response"
+	"github.com/leehai1107/Task-managent-sys/repository"
+	"github.com/leehai1107/Task-managent-sys/wapper"
 	"go.uber.org/zap"
 )
 

@@ -25,7 +25,7 @@ func ConnectDB() {
 		dbname   = os.Getenv("POSTGRES_DBNAME")
 	)
 
-	pgsqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+"password=%s dbname=%s sslmode=disable",
+	pgsqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable TimeZone=Asia/Shanghai",
 		host, port, user, password, dbname)
 
 	db, err := gorm.Open(postgres.Open(pgsqlInfo), &gorm.Config{})

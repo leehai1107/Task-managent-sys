@@ -3,10 +3,9 @@ package repository
 import (
 	"context"
 
-	"scheduleSystem/infra"
-	"scheduleSystem/model/entity"
-	"scheduleSystem/model/response"
-
+	"github.com/leehai1107/Task-managent-sys/infra"
+	"github.com/leehai1107/Task-managent-sys/model/entity"
+	"github.com/leehai1107/Task-managent-sys/model/response"
 	"go.uber.org/zap"
 )
 

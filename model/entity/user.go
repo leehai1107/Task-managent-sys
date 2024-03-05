@@ -1,6 +1,6 @@
 package entity
 
-import "scheduleSystem/utils"
+import "github.com/leehai1107/Task-managent-sys/utils"
 
 type User struct {
 	UserID   uint       `json:"user_id" gorm:"primaryKey"`

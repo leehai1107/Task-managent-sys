@@ -3,12 +3,11 @@ package handler
 import (
 	"net/http"
 
-	"scheduleSystem/model/entity"
-	"scheduleSystem/model/request"
-	"scheduleSystem/usecase"
-	"scheduleSystem/wapper"
-
 	"github.com/gin-gonic/gin"
+	"github.com/leehai1107/Task-managent-sys/model/entity"
+	"github.com/leehai1107/Task-managent-sys/model/request"
+	"github.com/leehai1107/Task-managent-sys/usecase"
+	"github.com/leehai1107/Task-managent-sys/wapper"
 	"go.uber.org/zap"
 )
 
@@ -29,7 +28,7 @@ func NewUserHandler() IUserHandler {
 }
 
 func (u *userHander) Ping(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, wapper.SuccessWithData("Pong..."))
+	c.IndentedJSON(http.StatusOK, wapper.SuccessWithData("Pong...Pong...Pong"))
 }
 
 func (u *userHander) Register(c *gin.Context) {

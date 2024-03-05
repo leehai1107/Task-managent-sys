@@ -3,10 +3,9 @@ package main
 import (
 	"log"
 
-	"scheduleSystem/infra"
-	"scheduleSystem/router"
-
 	"github.com/joho/godotenv"
+	"github.com/leehai1107/Task-managent-sys/infra"
+	"github.com/leehai1107/Task-managent-sys/router"
 )
 
 func main() {
@@ -19,5 +18,5 @@ func main() {
 	defer infra.CloseDB()
 
 	routes := router.NewRouter()
-	routes.Register().Run("localhost:8080")
+  routes.Register().Run(":8080")
 }

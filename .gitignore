@@ -1,7 +1,6 @@
 /.idea/
 /vendor/
-.env
-docker-compose.*.yaml
+
 coverage.html
 coverage.out
 app

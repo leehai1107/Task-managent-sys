@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/usr/src/app
+    command: air ./main.go -b 0.0.0.0
+  db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DBNAME=${POSTGRES_DBNAME}
+      - POSTGRES_PORT=${POSTGRES_PORT}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./infra/script.sql:/docker-entrypoint-initdb.d/script.sql
+
+volumes:
+  dbinit:
