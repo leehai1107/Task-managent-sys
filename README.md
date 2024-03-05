@@ -1,11 +1,10 @@
-
 # Project: Tasks management system
-A REST-API for tasks management system written in Golang.
+## A REST-API for ==tasks management system== written in Golang.
+----
 # Require:
 ```bash
-go >= 1.16
+docker
 git 
-PostgresSQL installed
 ```
 
 # How to install:
@@ -13,21 +12,15 @@ PostgresSQL installed
 git clone https://github.com/leehai1107/Task-managent-sys
 ```
 # How to run:
-## Excute:
 ```bash
-script.sql
+docker compose up
 ```
-## Run
-```bash
-go run main.go
-```
-
 # API Reference
 
 #### Register user
 
 ```http
-  GET /user/register
+  POST /user/register
 ```
 ```bash
 {
@@ -49,7 +42,7 @@ go run main.go
 |  `address` | `string` | Your address               |
 |  `phone`   | `string` | Your phone                 |
 
-Takes in data and return user_id base on success.
+**Takes in data and return ``user_id`` base on success.**
 ```bash
 {
     "status": "Success",
