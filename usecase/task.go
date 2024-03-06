@@ -3,14 +3,14 @@ package usecase
 import (
 	"context"
 
-	"github.com/leehai1107/Task-managent-sys/model/request"
+	"github.com/leehai1107/Task-managent-sys/model/entity"
 	"github.com/leehai1107/Task-managent-sys/model/response"
 	"github.com/leehai1107/Task-managent-sys/repository"
 	"go.uber.org/zap"
 )
 
-type ITaskService interface {
-	CreateTask(ctx context.Context, req request.Task) (res response.TaskResponse, err error)
+type ITaskService interface{
+CreateTask(ctx context.Context, req entity.Task) (res response.TaskResponse, err error) 
 }
 
 type taskService struct {
@@ -23,7 +23,7 @@ func NewTaskService() ITaskService {
 	}
 }
 
-func (t *taskService) CreateTask(ctx context.Context, req request.Task) (res response.TaskResponse, err error) {
+func (t *taskService) CreateTask(ctx context.Context, req entity.Task) (res response.TaskResponse, err error) {
 	logger, _ := zap.NewProduction()
 	defer logger.Sync()
 

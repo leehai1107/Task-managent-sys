@@ -4,13 +4,13 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/leehai1107/Task-managent-sys/model/request"
+	"github.com/leehai1107/Task-managent-sys/model/entity"
 	"github.com/leehai1107/Task-managent-sys/usecase"
 	"github.com/leehai1107/Task-managent-sys/wapper"
 )
 
-type ITaskHandler interface {
-	CreateTask(c *gin.Context)
+type ITaskHandler interface{
+  CreateTask(c *gin.Context) 
 }
 
 type taskHandler struct {
@@ -24,8 +24,8 @@ func NewTaskHandler() ITaskHandler {
 }
 
 func (t *taskHandler) CreateTask(c *gin.Context) {
-	/* BUG: did not check the enddate and startdate: enddate > startdate   */
-	var req request.Task
+  /* BUG: did not check the enddate and startdate: enddate > startdate   */
+	var req entity.Task
 	err := c.BindJSON(&req)
 	if err != nil {
 		c.IndentedJSON(http.StatusBadRequest, wapper.FailWithErr(err))
