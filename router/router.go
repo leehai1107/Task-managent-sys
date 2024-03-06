@@ -11,11 +11,13 @@ type IRouter interface {
 
 type router struct {
 	userHandler handler.IUserHandler
+  taskHandler handler.ITaskHandler
 }
 
 func NewRouter() IRouter {
 	return &router{
 		userHandler: handler.NewUserHandler(),
+    taskHandler: handler.NewTaskHandler(),
 	}
 }
 
@@ -28,6 +30,11 @@ func (r *router) Register() *gin.Engine {
 		user.POST("/register", r.userHandler.Register)
 		user.POST("/login", r.userHandler.Login)
 	}
+
+  task := router.Group("/task")
+  {
+    task.POST("/create",r.taskHandler.CreateTask)
+  }
 
 	return router
 }

@@ -11,4 +11,5 @@ type Task struct {
 	StartDate   utils.DateTime `json:"start_date"`
 	EndDate     utils.DateTime `json:"end_date"`
 	Status      string         `json:"status"`
+	UserID      uint           `json:"user_id"`
 }
