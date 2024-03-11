@@ -65,3 +65,5 @@ func (u *userHander) Login(c *gin.Context) {
 	}
 	c.IndentedJSON(http.StatusOK, wapper.SuccessWithData(res))
 }
+
+/* TODO: update user information */

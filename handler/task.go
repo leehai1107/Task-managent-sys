@@ -24,7 +24,6 @@ func NewTaskHandler() ITaskHandler {
 }
 
 func (t *taskHandler) CreateTask(c *gin.Context) {
-  /* BUG: did not check the enddate and startdate: enddate > startdate   */
 	var req entity.Task
 	err := c.BindJSON(&req)
 	if err != nil {
@@ -39,3 +38,5 @@ func (t *taskHandler) CreateTask(c *gin.Context) {
 
 	c.IndentedJSON(http.StatusOK, wapper.SuccessWithData(res))
 }
+
+/* TODO: Update task , update task base on date time  */
