@@ -9,8 +9,9 @@ import (
 	"github.com/leehai1107/Task-managent-sys/wapper"
 )
 
-type ITaskHandler interface{
-  CreateTask(c *gin.Context) 
+type ITaskHandler interface {
+	CreateTask(c *gin.Context)
+	UpdateTask(c *gin.Context)
 }
 
 type taskHandler struct {
@@ -39,4 +40,17 @@ func (t *taskHandler) CreateTask(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, wapper.SuccessWithData(res))
 }
 
-/* TODO: Update task , update task base on date time  */
+func (t *taskHandler) UpdateTask(c *gin.Context) {
+	var req entity.Task
+	err := c.BindJSON(&req)
+	if err != nil {
+		c.IndentedJSON(http.StatusBadRequest, wapper.FailWithErr(err))
+		return
+	}
+	res, err := t.taskService.UpdateTask(c, req)
+	if err != nil {
+		c.IndentedJSON(http.StatusInternalServerError, wapper.FailWithErr(err))
+		return
+	}
+	c.IndentedJSON(http.StatusOK, wapper.SuccessWithData(res))
+}

@@ -12,6 +12,7 @@ import (
 
 type ITaskRepo interface {
 	CreateTask(ctx context.Context, req entity.Task) (res response.TaskResponse, err error)
+	UpdateTask(ctx context.Context, req entity.Task) (res response.TaskResponse, err error)
 }
 
 type taskRepo struct{}
@@ -29,4 +30,16 @@ func (t *taskRepo) CreateTask(ctx context.Context, req entity.Task) (res respons
 		return response.TaskResponse{TaskID: 0, Title: "", Message: constant.FAIL_MESSAGE}, err
 	}
 	return response.TaskResponse{TaskID: req.TaskID, Title: req.Title, Message: constant.SUCCESS_MESSAGE}, nil
+}
+
+func (t *taskRepo) UpdateTask(ctx context.Context, req entity.Task) (res response.TaskResponse, err error) {
+	logger, _ := zap.NewProduction()
+	defer logger.Sync()
+
+	err = infra.GetDB().Updates(&req).Error
+	if err != nil {
+		return response.TaskResponse{TaskID: 0, Title: "", Message: constant.FAIL_UPDATE_MESSAGE}, err
+	}
+
+	return response.TaskResponse{TaskID: req.TaskID, Title: req.Title, Message: constant.SUCCESS_UPDATE_MESSAGE}, nil
 }

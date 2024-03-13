@@ -13,6 +13,7 @@ import (
 
 type ITaskService interface {
 	CreateTask(ctx context.Context, req entity.Task) (res response.TaskResponse, err error)
+	UpdateTask(ctx context.Context, req entity.Task) (res response.TaskResponse, err error)
 }
 
 type taskService struct {
@@ -35,6 +36,22 @@ func (t *taskService) CreateTask(ctx context.Context, req entity.Task) (res resp
 	}
 
 	res, err = t.taskRepo.CreateTask(ctx, req)
+	if err != nil {
+		return response.TaskResponse{}, err
+	}
+
+	return res, nil
+}
+
+func (t *taskService) UpdateTask(ctx context.Context, req entity.Task) (res response.TaskResponse, err error) {
+	logger, _ := zap.NewProduction()
+	defer logger.Sync()
+
+	err = utils.ValidateDate(req.StartDate, req.EndDate)
+	if err != nil {
+		return response.TaskResponse{}, wapper.Wrap(err, "ValidateDate")
+	}
+	res, err = t.taskRepo.UpdateTask(ctx, req)
 	if err != nil {
 		return response.TaskResponse{}, err
 	}
