@@ -15,7 +15,7 @@ import (
 type IUserService interface {
 	Register(ctx context.Context, req entity.User) (res response.UserCreateRes, err error)
 	Login(ctx context.Context, req request.UserLogin) (res entity.User, err error)
-	Update(ctx context.Context, req request.UserUpdateReq) (res entity.User, err error)
+	Update(ctx context.Context, req entity.User) (res entity.User, err error)
 }
 
 type userService struct {
@@ -56,7 +56,7 @@ func (u *userService) Login(ctx context.Context, req request.UserLogin) (res ent
 	return res, nil
 }
 
-func (u *userService) Update(ctx context.Context, req request.UserUpdateReq) (res entity.User, err error) {
+func (u *userService) Update(ctx context.Context, req entity.User) (res entity.User, err error) {
 	logger, _ := zap.NewProduction()
 	defer logger.Sync()
 

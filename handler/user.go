@@ -70,7 +70,7 @@ func (u *userHander) Login(c *gin.Context) {
 func (u *userHander) UpdateUser(c *gin.Context) {
 	logger, _ := zap.NewProduction()
 	defer logger.Sync()
-	var req request.UserUpdateReq
+	var req entity.User
 	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		c.IndentedJSON(http.StatusBadRequest, wapper.FailWithErr(err))

@@ -5,7 +5,6 @@ import (
 
 	"github.com/leehai1107/Task-managent-sys/infra"
 	"github.com/leehai1107/Task-managent-sys/model/entity"
-	"github.com/leehai1107/Task-managent-sys/model/request"
 	"github.com/leehai1107/Task-managent-sys/model/response"
 	"go.uber.org/zap"
 )
@@ -13,7 +12,7 @@ import (
 type IUserRepo interface {
 	Register(ctx context.Context, req entity.User) (res response.UserCreateRes, err error)
 	GetUserByUsername(ctx context.Context, req string) (res entity.User, err error)
-	Save(ctx context.Context, req request.UserUpdateReq) (res entity.User, err error)
+	Save(ctx context.Context, req entity.User) (res entity.User, err error)
 }
 
 type userRepo struct{}
@@ -46,7 +45,7 @@ func (u *userRepo) GetUserByUsername(ctx context.Context, req string) (res entit
 	return
 }
 
-func (u *userRepo) Save(ctx context.Context, req request.UserUpdateReq) (res entity.User, err error) {
+func (u *userRepo) Save(ctx context.Context, req entity.User) (res entity.User, err error) {
 	logger, _ := zap.NewProduction()
 	defer logger.Sync()
 
