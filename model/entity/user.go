@@ -11,3 +11,5 @@ type User struct {
 	Address  string     `json:"address"`
 	Phone    string     `json:"phone"`
 }
+
+func (User) TableName() string { return "users" }

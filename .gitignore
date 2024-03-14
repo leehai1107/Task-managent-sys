@@ -9,5 +9,4 @@ app
 *.exe
 *.exe~
 *.dll
-og-api
 __debug_bin

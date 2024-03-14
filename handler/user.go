@@ -15,6 +15,7 @@ type IUserHandler interface {
 	Ping(c *gin.Context)
 	Register(c *gin.Context)
 	Login(c *gin.Context)
+	UpdateUser(c *gin.Context)
 }
 
 type userHander struct {
@@ -66,4 +67,20 @@ func (u *userHander) Login(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, wapper.SuccessWithData(res))
 }
 
-/* TODO: update user information */
+func (u *userHander) UpdateUser(c *gin.Context) {
+	logger, _ := zap.NewProduction()
+	defer logger.Sync()
+	var req request.UserUpdateReq
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		c.IndentedJSON(http.StatusBadRequest, wapper.FailWithErr(err))
+		return
+	}
+	res, err := u.userService.Update(c, req)
+	if err != nil {
+		c.IndentedJSON(http.StatusInternalServerError, wapper.FailWithErr(err))
+		return
+	}
+	c.IndentedJSON(http.StatusOK, wapper.SuccessWithData(res))
+
+}

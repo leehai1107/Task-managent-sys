@@ -13,3 +13,5 @@ type Task struct {
 	Status      string         `json:"status"`
 	UserID      uint           `json:"user_id"`
 }
+
+func (Task) TableName() string { return "tasks" }

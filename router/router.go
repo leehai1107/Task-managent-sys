@@ -29,6 +29,7 @@ func (r *router) Register() *gin.Engine {
 		user.GET("/ping", r.userHandler.Ping)
 		user.POST("/register", r.userHandler.Register)
 		user.POST("/login", r.userHandler.Login)
+		user.PUT("/update", r.userHandler.UpdateUser)
 	}
 
 	task := router.Group("/task")

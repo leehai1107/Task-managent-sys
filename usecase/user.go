@@ -15,6 +15,7 @@ import (
 type IUserService interface {
 	Register(ctx context.Context, req entity.User) (res response.UserCreateRes, err error)
 	Login(ctx context.Context, req request.UserLogin) (res entity.User, err error)
+	Update(ctx context.Context, req request.UserUpdateReq) (res entity.User, err error)
 }
 
 type userService struct {
@@ -52,5 +53,17 @@ func (u *userService) Login(ctx context.Context, req request.UserLogin) (res ent
 	if req.Password != res.Password {
 		return entity.User{}, wapper.Wrap(errors.New("Incorrect Username or Password"), "Wrong Password")
 	}
+	return res, nil
+}
+
+func (u *userService) Update(ctx context.Context, req request.UserUpdateReq) (res entity.User, err error) {
+	logger, _ := zap.NewProduction()
+	defer logger.Sync()
+
+	res, err = u.userRepo.Save(ctx, req)
+	if err != nil {
+		return entity.User{}, wapper.Wrap(err, "Some thing wrong!")
+	}
+
 	return res, nil
 }
