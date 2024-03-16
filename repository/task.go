@@ -49,7 +49,8 @@ func (t *taskRepo) GetByUserID(ctx context.Context, req uint) (res []entity.Task
 	logger, _ := zap.NewProduction()
 	defer logger.Sync()
 
-	err = infra.GetDB().Table("tasks").
+	err = infra.GetDB().
+		Table(entity.Task{}.TableName()).
 		Select("*").
 		Where("user_id = ?", req).
 		Scan(&res).Error
