@@ -36,6 +36,7 @@ func (r *router) Register() *gin.Engine {
 	{
 		task.POST("/create", r.taskHandler.CreateTask)
 		task.PUT("/update", r.taskHandler.UpdateTask)
+		task.GET("/:user_id", r.taskHandler.GetTaskByUserID)
 	}
 
 	return router

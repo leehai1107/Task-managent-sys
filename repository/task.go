@@ -13,6 +13,7 @@ import (
 type ITaskRepo interface {
 	CreateTask(ctx context.Context, req entity.Task) (res response.TaskResponse, err error)
 	UpdateTask(ctx context.Context, req entity.Task) (res response.TaskResponse, err error)
+	GetByUserID(ctx context.Context, req uint) (res []entity.Task, err error)
 }
 
 type taskRepo struct{}
@@ -42,4 +43,19 @@ func (t *taskRepo) UpdateTask(ctx context.Context, req entity.Task) (res respons
 	}
 
 	return response.TaskResponse{TaskID: req.TaskID, Title: req.Title, Message: constant.SUCCESS_UPDATE_MESSAGE}, nil
+}
+
+func (t *taskRepo) GetByUserID(ctx context.Context, req uint) (res []entity.Task, err error) {
+	logger, _ := zap.NewProduction()
+	defer logger.Sync()
+
+	err = infra.GetDB().Table("tasks").
+		Select("*").
+		Where("user_id = ?", req).
+		Scan(&res).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return res, nil
 }
