@@ -15,6 +15,7 @@ type ITaskService interface {
 	CreateTask(ctx context.Context, req entity.Task) (res response.TaskResponse, err error)
 	UpdateTask(ctx context.Context, req entity.Task) (res response.TaskResponse, err error)
 	GetTaskByUserID(ctx context.Context, req uint) (res []entity.Task, err error)
+	GetExpiredTask(ctx context.Context, req uint) (res []entity.Task, err error)
 }
 
 type taskService struct {
@@ -65,6 +66,18 @@ func (t *taskService) GetTaskByUserID(ctx context.Context, req uint) (res []enti
 	defer logger.Sync()
 
 	res, err = t.taskRepo.GetByUserID(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+
+	return res, nil
+}
+
+func (t *taskService) GetExpiredTask(ctx context.Context, req uint) (res []entity.Task, err error) {
+	logger, _ := zap.NewProduction()
+	defer logger.Sync()
+
+	res, err = t.taskRepo.GetExpiredTask(ctx, req)
 	if err != nil {
 		return nil, err
 	}

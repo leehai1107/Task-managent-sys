@@ -37,7 +37,7 @@ func (r *router) Register() *gin.Engine {
 		task.POST("/create", r.taskHandler.CreateTask)
 		task.PUT("/update", r.taskHandler.UpdateTask)
 		task.GET("/:user_id", r.taskHandler.GetTaskByUserID)
-		//TODO: get all tasks have expried (end date > now())
+		task.GET("/expired/:user_id", r.taskHandler.GetExpiredTask)
 		//TODO: get all tasks still avilable
 		//TODO:
 	}

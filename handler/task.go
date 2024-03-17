@@ -14,6 +14,7 @@ type ITaskHandler interface {
 	CreateTask(c *gin.Context)
 	UpdateTask(c *gin.Context)
 	GetTaskByUserID(c *gin.Context)
+	GetExpiredTask(c *gin.Context)
 }
 
 type taskHandler struct {
@@ -65,6 +66,21 @@ func (t *taskHandler) GetTaskByUserID(c *gin.Context) {
 		return
 	}
 	res, err := t.taskService.GetTaskByUserID(c, uint(data))
+	if err != nil {
+		c.IndentedJSON(http.StatusInternalServerError, wapper.FailWithErr(err))
+		return
+	}
+	c.IndentedJSON(http.StatusOK, wapper.SuccessWithData(res))
+}
+
+func (t *taskHandler) GetExpiredTask(c *gin.Context) {
+	req := c.Param("user_id")
+	data, err := strconv.Atoi(req)
+	if err != nil {
+		c.IndentedJSON(http.StatusBadRequest, wapper.FailWithErr(err))
+		return
+	}
+	res, err := t.taskService.GetExpiredTask(c, uint(data))
 	if err != nil {
 		c.IndentedJSON(http.StatusInternalServerError, wapper.FailWithErr(err))
 		return
