@@ -58,6 +58,15 @@ func (t *taskHandler) UpdateTask(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, wapper.SuccessWithData(res))
 }
 
+// GetTaskByUserID godoc
+// @Summary      Get tasks by user_id
+// @Description  Get all tasks by user_id
+// @Tags         task
+// @Param 		 user_id path int true "User ID"
+// @Success      200  {object}   wapper.Response
+// @Failure	   400 {object} wapper.Response
+// @Failure		500 {object} wapper.Response
+// @Router       /task/{user_id} [get]
 func (t *taskHandler) GetTaskByUserID(c *gin.Context) {
 	req := c.Param("user_id")
 	data, err := strconv.Atoi(req)

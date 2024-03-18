@@ -27,6 +27,7 @@ func NewRouter() IRouter {
 func (r *router) Register() *gin.Engine {
 	router := gin.Default()
 	//Swagger
+	//{url}/swagger/index.html
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	user := router.Group("/user")
