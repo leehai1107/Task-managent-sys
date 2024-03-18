@@ -1,4 +1,35 @@
 definitions:
+  constant.TaskStatus:
+    enum:
+    - Done!
+    - Not done!
+    - On going!
+    - On planning!
+    - Cancel!
+    type: string
+    x-enum-varnames:
+    - TaskStatusDone
+    - TaskStatusNotDone
+    - TaskStatusOnGoing
+    - TaskStatusOnPlanning
+    - TaskStatusCancel
+  entity.Task:
+    properties:
+      description:
+        type: string
+      end_date:
+        type: string
+      start_date:
+        type: string
+      status:
+        $ref: '#/definitions/constant.TaskStatus'
+      task_id:
+        type: integer
+      title:
+        type: string
+      user_id:
+        type: integer
+    type: object
   entity.User:
     properties:
       address:
@@ -56,6 +87,91 @@ paths:
           schema:
             $ref: '#/definitions/wapper.Response'
       summary: Get tasks by user_id
+      tags:
+      - task
+  /task/create:
+    post:
+      consumes:
+      - application/json
+      description: Create task which user_id = ?
+      parameters:
+      - description: task create data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/entity.Task'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/wapper.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/wapper.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/wapper.Response'
+      summary: Create task
+      tags:
+      - task
+  /task/expired/{user_id}:
+    get:
+      description: Get all tasks end_time > now()
+      parameters:
+      - description: User ID
+        in: path
+        name: user_id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/wapper.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/wapper.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/wapper.Response'
+      summary: Get tasks expired
+      tags:
+      - task
+  /task/update:
+    put:
+      consumes:
+      - application/json
+      description: Update task data
+      parameters:
+      - description: task update data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/entity.Task'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/wapper.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/wapper.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/wapper.Response'
+      summary: Update task
       tags:
       - task
   /user/login:

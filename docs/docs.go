@@ -15,6 +15,136 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/task/create": {
+            "post": {
+                "description": "Create task which user_id = ?",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "task"
+                ],
+                "summary": "Create task",
+                "parameters": [
+                    {
+                        "description": "task create data",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/entity.Task"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/wapper.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/wapper.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/wapper.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/task/expired/{user_id}": {
+            "get": {
+                "description": "Get all tasks end_time \u003e now()",
+                "tags": [
+                    "task"
+                ],
+                "summary": "Get tasks expired",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "User ID",
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/wapper.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/wapper.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/wapper.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/task/update": {
+            "put": {
+                "description": "Update task data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "task"
+                ],
+                "summary": "Update task",
+                "parameters": [
+                    {
+                        "description": "task update data",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/entity.Task"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/wapper.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/wapper.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/wapper.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/task/{user_id}": {
             "get": {
                 "description": "Get all tasks by user_id",
@@ -210,6 +340,49 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "constant.TaskStatus": {
+            "type": "string",
+            "enum": [
+                "Done!",
+                "Not done!",
+                "On going!",
+                "On planning!",
+                "Cancel!"
+            ],
+            "x-enum-varnames": [
+                "TaskStatusDone",
+                "TaskStatusNotDone",
+                "TaskStatusOnGoing",
+                "TaskStatusOnPlanning",
+                "TaskStatusCancel"
+            ]
+        },
+        "entity.Task": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "end_date": {
+                    "type": "string"
+                },
+                "start_date": {
+                    "type": "string"
+                },
+                "status": {
+                    "$ref": "#/definitions/constant.TaskStatus"
+                },
+                "task_id": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "integer"
+                }
+            }
+        },
         "entity.User": {
             "type": "object",
             "properties": {
