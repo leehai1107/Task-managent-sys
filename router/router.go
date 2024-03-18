@@ -3,6 +3,9 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/leehai1107/Task-managent-sys/handler"
+
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 type IRouter interface {
@@ -23,6 +26,8 @@ func NewRouter() IRouter {
 
 func (r *router) Register() *gin.Engine {
 	router := gin.Default()
+	//Swagger
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	user := router.Group("/user")
 	{

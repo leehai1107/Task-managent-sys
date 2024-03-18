@@ -28,10 +28,27 @@ func NewUserHandler() IUserHandler {
 	}
 }
 
+// Ping godoc
+// @Summary      Ping service
+// @Description  get ping from service
+// @Tags         ping
+// @Success      200  {object}   wapper.Response
+// @Router       /user/ping [get]
 func (u *userHander) Ping(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, wapper.SuccessWithData("Pong...Pong...Pong"))
 }
 
+// Register godoc
+// @Summary      Register user
+// @Description  Register for user
+// @Tags         user
+// @Accept       json
+// @Produce      json
+// @Param 		 data body entity.User true "user register data"
+// @Success      200  {object}   wapper.Response
+// @Failure	   400 {object} wapper.Response
+// @Failure		500 {object} wapper.Response
+// @Router       /user/register [post]
 func (u *userHander) Register(c *gin.Context) {
 	var req entity.User
 	err := c.BindJSON(&req)
@@ -48,6 +65,17 @@ func (u *userHander) Register(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, wapper.SuccessWithData(res))
 }
 
+// Login godoc
+// @Summary      Login user
+// @Description  Login for user
+// @Tags         user
+// @Accept       json
+// @Produce      json
+// @Param 		 data body request.UserLogin true "user login data"
+// @Success      200  {object}   wapper.Response
+// @Failure	   400 {object} wapper.Response
+// @Failure		500 {object} wapper.Response
+// @Router       /user/login [post]
 func (u *userHander) Login(c *gin.Context) {
 	logger, _ := zap.NewProduction()
 	defer logger.Sync()
@@ -67,6 +95,17 @@ func (u *userHander) Login(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, wapper.SuccessWithData(res))
 }
 
+// UpdateUser godoc
+// @Summary      Update user
+// @Description  Update infomations for user
+// @Tags         user
+// @Accept       json
+// @Produce      json
+// @Param 		 data body entity.User true "user update data"
+// @Success      200  {object}   wapper.Response
+// @Failure	   400 {object} wapper.Response
+// @Failure		500 {object} wapper.Response
+// @Router       /user/update [put]
 func (u *userHander) UpdateUser(c *gin.Context) {
 	logger, _ := zap.NewProduction()
 	defer logger.Sync()

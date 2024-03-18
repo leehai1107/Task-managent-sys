@@ -30,7 +30,7 @@ func ConnectDB() {
 
 	db, err := gorm.Open(postgres.Open(pgsqlInfo), &gorm.Config{})
 	if err != nil {
-		logger.Error("Unable to ConnectDB postgres", zap.Error(err))
+		logger.Fatal("Unable to ConnectDB postgres", zap.Error(err))
 	}
 
 	dbSingleton = db

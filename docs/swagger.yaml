@@ -1,0 +1,137 @@
+definitions:
+  entity.User:
+    properties:
+      address:
+        type: string
+      dob:
+        type: string
+      password:
+        type: string
+      phone:
+        type: string
+      sex:
+        type: string
+      user_id:
+        type: integer
+      username:
+        type: string
+    type: object
+  request.UserLogin:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  wapper.Response:
+    properties:
+      data: {}
+      error: {}
+      status:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /user/login:
+    post:
+      consumes:
+      - application/json
+      description: Login for user
+      parameters:
+      - description: user login data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.UserLogin'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/wapper.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/wapper.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/wapper.Response'
+      summary: Login user
+      tags:
+      - user
+  /user/ping:
+    get:
+      description: get ping from service
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/wapper.Response'
+      summary: Ping service
+      tags:
+      - ping
+  /user/register:
+    post:
+      consumes:
+      - application/json
+      description: Register for user
+      parameters:
+      - description: user register data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/entity.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/wapper.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/wapper.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/wapper.Response'
+      summary: Register user
+      tags:
+      - user
+  /user/update:
+    put:
+      consumes:
+      - application/json
+      description: Update infomations for user
+      parameters:
+      - description: user update data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/entity.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/wapper.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/wapper.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/wapper.Response'
+      summary: Update user
+      tags:
+      - user
+swagger: "2.0"
