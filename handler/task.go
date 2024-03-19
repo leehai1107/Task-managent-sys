@@ -15,6 +15,7 @@ type ITaskHandler interface {
 	UpdateTask(c *gin.Context)
 	GetTaskByUserID(c *gin.Context)
 	GetExpiredTask(c *gin.Context)
+	GetAvailableTask(c *gin.Context)
 }
 
 type taskHandler struct {
@@ -106,7 +107,7 @@ func (t *taskHandler) GetTaskByUserID(c *gin.Context) {
 
 // GetExpiredTask godoc
 // @Summary      Get tasks expired
-// @Description  Get all tasks end_time > now()
+// @Description  Get all tasks end_time < now()
 // @Tags         task
 // @Param 		 user_id path int true "User ID"
 // @Success      200  {object}   wapper.Response
@@ -121,6 +122,30 @@ func (t *taskHandler) GetExpiredTask(c *gin.Context) {
 		return
 	}
 	res, err := t.taskService.GetExpiredTask(c, uint(data))
+	if err != nil {
+		c.IndentedJSON(http.StatusInternalServerError, wapper.FailWithErr(err))
+		return
+	}
+	c.IndentedJSON(http.StatusOK, wapper.SuccessWithData(res))
+}
+
+// GetAvailableTask godoc
+// @Summary      Get tasks available
+// @Description  Get all tasks end_time > now()
+// @Tags         task
+// @Param 		 user_id path int true "User ID"
+// @Success      200  {object}   wapper.Response
+// @Failure	   400 {object} wapper.Response
+// @Failure		500 {object} wapper.Response
+// @Router       /task/available/{user_id} [get]
+func (t *taskHandler) GetAvailableTask(c *gin.Context) {
+	req := c.Param("user_id")
+	data, err := strconv.Atoi(req)
+	if err != nil {
+		c.IndentedJSON(http.StatusBadRequest, wapper.FailWithErr(err))
+		return
+	}
+	res, err := t.taskService.GetAvailableTask(c, uint(data))
 	if err != nil {
 		c.IndentedJSON(http.StatusInternalServerError, wapper.FailWithErr(err))
 		return

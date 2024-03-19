@@ -61,8 +61,22 @@ definitions:
       status:
         type: string
     type: object
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
+host: localhost:8080
 info:
-  contact: {}
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is Task-Management-System server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Swagger Task-Management-System API
+  version: "1.0"
 paths:
   /task/{user_id}:
     get:
@@ -87,6 +101,31 @@ paths:
           schema:
             $ref: '#/definitions/wapper.Response'
       summary: Get tasks by user_id
+      tags:
+      - task
+  /task/available/{user_id}:
+    get:
+      description: Get all tasks end_time > now()
+      parameters:
+      - description: User ID
+        in: path
+        name: user_id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/wapper.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/wapper.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/wapper.Response'
+      summary: Get tasks available
       tags:
       - task
   /task/create:
@@ -121,7 +160,7 @@ paths:
       - task
   /task/expired/{user_id}:
     get:
-      description: Get all tasks end_time > now()
+      description: Get all tasks end_time < now()
       parameters:
       - description: User ID
         in: path
@@ -275,4 +314,7 @@ paths:
       summary: Update user
       tags:
       - user
+securityDefinitions:
+  BasicAuth:
+    type: basic
 swagger: "2.0"
