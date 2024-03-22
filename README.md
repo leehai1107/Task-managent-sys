@@ -41,7 +41,7 @@ Task-managent-sys
 
 #### Swagger
 
-```http
+```bash
   {url}/swagger/index.html
 ```
 
